@@ -1,0 +1,137 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - ask_diet_info
+  - local_products
+  - thank_you
+  - provide_info  # Added intent
+
+actions:
+  - action_chat_with_llm
+
+entities:
+  - age
+  - gender
+  - residence
+  - children
+  - child_age
+  - child_school_status
+  - preschool_center
+  - school_grade
+
+slots:
+  age:
+    type: text
+    mappings:
+      - type: from_text
+  gender:
+    type: text
+    mappings:
+      - type: from_text
+  residence:
+    type: text
+    mappings:
+      - type: from_text
+  children:
+    type: list
+    mappings:
+      - type: from_text
+  child_age:
+    type: text
+    mappings:
+      - type: from_text
+  child_school_status:
+    type: text
+    mappings:
+      - type: from_text
+  preschool_center:
+    type: text
+    mappings:
+      - type: from_text
+  school_grade:
+    type: text
+    mappings:
+      - type: from_text
+
+responses:
+  utter_greet:
+    - text: "Hello! How can I help you today?"
+
+  utter_ask_age:
+    - text: "What is your age?"
+
+  utter_ask_gender:
+    - text: "What gender do you identify with?"
+      buttons:
+        - title: "Man"
+          payload: "/provide_info{\"gender\":\"Man\"}"
+        - title: "Woman"
+          payload: "/provide_info{\"gender\":\"Woman\"}"
+        - title: "Other"
+          payload: "/provide_info{\"gender\":\"Other\"}"
+
+  utter_ask_residence:
+    - text: "What is your place and neighborhood of residence?"
+
+  utter_ask_children:
+    - text: "How many children do you have?"
+
+  utter_ask_child_age:
+    - text: "What is your child's age?"
+
+  utter_ask_child_school_status:
+    - text: "Does your child currently attend school or a child development center?"
+
+  utter_ask_preschool_center:
+    - text: "If you have preschool-aged children, do they attend a child development center or educational center?"
+
+  utter_ask_school_grade:
+    - text: "If you have school-aged children, what grade or level are they in?"
+
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+    - text: "Did that help you?"
+
+  utter_happy:
+    - text: "Great, carry on!"
+
+  utter_goodbye:
+    - text: "Bye"
+
+  utter_iamabot:
+    - text: "I am a bot, powered by Rasa."
+
+  utter_diet_info:
+    - text: "A healthy diet for children includes a variety of fruits, vegetables, whole grains, proteins, and dairy. It's important to use local products to ensure freshness and support the community."
+
+  utter_local_products:
+    - text: "Local products such as beans, corn, sweet potatoes, and bananas are excellent for a nutritious diet. These foods are rich in essential vitamins and minerals that help combat malnutrition."
+
+  utter_thank_you:
+    - text: "You're welcome! If you have any more questions, feel free to ask."
+
+forms:
+  user_info_form:
+    required_slots:
+      - age
+      - gender
+      - residence
+      - children
+      - child_age
+      - child_school_status
+      - preschool_center
+      - school_grade
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

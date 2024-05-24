@@ -1,0 +1,22 @@
+version: "3.1"
+stories:
+- story: user asks question
+  steps:
+  - intent: provide_info
+  - action: action_chat_with_llm
+
+rules:
+- rule: activate user info form
+  steps:
+  - intent: greet
+  - action: user_info_form
+  - active_loop: user_info_form
+
+- rule: submit user info form
+  condition:
+  - active_loop: user_info_form
+  steps:
+  - action: user_info_form
+  - active_loop: null
+  - action: utter_thank_you
+  
